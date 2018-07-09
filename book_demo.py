@@ -19,7 +19,7 @@ HIDDEN_DIM = 25
 SEQ_LENGTH = 10
 START_TOKEN = 0
 
-EPOCH_ITER = 1000
+EPOCH_ITER = 200
 CURRICULUM_RATE = 0.02  # how quickly to move from supervised training to unsupervised
 TRAIN_ITER = 100000  # generator/discriminator alternating
 D_STEPS = 3  # how many times to train the discriminator per generator step
@@ -29,7 +29,7 @@ DATA_FILE = 'book.txt'
 
 
 def tokenize(s):
-    return [c for c in ' '.join(s.split())]
+    return [c for c in s.split()]
 
 
 def get_data(download=not os.path.exists(DATA_FILE)):
@@ -42,7 +42,7 @@ def get_data(download=not os.path.exists(DATA_FILE)):
     token_stream = []
     is_gzip = False
     try:
-        open(DATA_FILE).read(2)
+        open(DATA_FILE, encoding="utf8").read(2)
     except UnicodeDecodeError:
         is_gzip = True
     with gzip.open(DATA_FILE) if is_gzip else codecs.open(DATA_FILE, 'r', 'utf-8',errors='ignore') as f:
